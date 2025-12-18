@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background -->
+    <radialGradient id="bg" cx="50%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#05060a"/>
+    </radialGradient>
+
+    <!-- Portal core glow -->
+    <radialGradient id="portalCore" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#bff0ff" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#6fd0ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#6fd0ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Portal halo -->
+    <radialGradient id="portalHalo" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#7ad8ff" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#4fb6ff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#4fb6ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ring gradient -->
+    <linearGradient id="portalRing" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eaf6ff"/>
+      <stop offset="55%" stop-color="#7ad8ff"/>
+      <stop offset="100%" stop-color="#2d6fe0"/>
+    </linearGradient>
+
+    <!-- Stronger glow filter -->
+    <filter id="portalGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feColorMatrix in="b" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0.75
+                0 0 0 0 1
+                0 0 0 0.35 0" result="g"/>
+      <feMerge>
+        <feMergeNode in="g"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="url(#bg)"/>
+
+  <!-- Portal -->
+  <g transform="translate(32 30) rotate(-18)">
+    <!-- halo -->
+    <ellipse cx="0" cy="0" rx="22" ry="15"
+             fill="url(#portalHalo)"/>
+
+    <!-- core glow -->
+    <ellipse cx="0" cy="0" rx="18" ry="12"
+             fill="url(#portalCore)"/>
+
+    <!-- bright ring -->
+    <ellipse cx="0" cy="0" rx="20" ry="13"
+             fill="none"
+             stroke="url(#portalRing)"
+             stroke-width="2.6"
+             filter="url(#portalGlow)"/>
+
+    <!-- inner rim (adds intensity) -->
+    <ellipse cx="0" cy="0" rx="15" ry="9.5"
+             fill="none"
+             stroke="#ffffff"
+             stroke-opacity="0.45"
+             stroke-width="1.6"/>
+  </g>
+
+  <!-- WSMP text -->
+  <text x="32" y="46"
+        text-anchor="middle"
+        font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+        font-size="22"
+        font-weight="900"
+        letter-spacing="0.5"
+        fill="#eaf6ff">
+    WSMP
+  </text>
+</svg>

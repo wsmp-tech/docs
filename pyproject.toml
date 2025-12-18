@@ -1,0 +1,13 @@
+[project]
+name = "wsmp-tech-docs"
+version = "0.1.0"
+description = "Documentation site for WSMP Tech."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "mkdocs-material>=9.5",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

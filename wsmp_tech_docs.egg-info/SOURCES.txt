@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+wsmp_tech_docs.egg-info/PKG-INFO
+wsmp_tech_docs.egg-info/SOURCES.txt
+wsmp_tech_docs.egg-info/dependency_links.txt
+wsmp_tech_docs.egg-info/requires.txt
+wsmp_tech_docs.egg-info/top_level.txt

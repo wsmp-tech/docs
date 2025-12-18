@@ -1,0 +1,29 @@
+site_name: WSMP Tech Docs
+site_url: https://wsmp.tech
+repo_url: https://github.com/wsmp-tech/docs
+repo_name: docs
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+nav:
+  - Home: index.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search

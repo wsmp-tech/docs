@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: wsmp-tech-docs
+Version: 0.1.0
+Summary: Documentation site for WSMP Tech.
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: mkdocs-material>=9.5
+
+# WSMP Tech Docs
+
+Documentation site for WSMP Tech, built with MkDocs Material.
