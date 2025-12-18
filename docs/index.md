@@ -4,9 +4,15 @@
 
 WSMP (Warp Speed Message Protocol) is a lightweight, UDP-based protocol for fast, reliable messaging between services on high-quality networks (VPC, LAN). It targets payloads up to 64 KB and prioritizes low latency and efficient batching over heavyweight transport features. The reference implementation is built in Rust.
 
-## Why WSMP
+## Why WSMP: Motivation and Advantages over HTTP/2 and QUIC
 
-General-purpose protocols like HTTP, HTTP/2, and QUIC are optimized for wide-area networks, large payloads, and complex congestion control. In controlled environments with fast links and small messages, that overhead becomes waste. WSMP keeps the stack minimal and leans on fast UDP APIs to maximize throughput and minimize latency.
+WSMP was designed to optimize the transmission of small messages in trusted high-speed networks, where traditional protocols like HTTP/2 and QUIC introduce unnecessary overhead, particularly in high-throughput scenarios. Here are the key reasons for creating the protocol:
+
+- Reduced latency for small requests through simplified flow control: both HTTP/2 (over TCP) and QUIC (HTTP/3) use strict credit-based flow control mechanisms. The receiver must actively send WINDOW_UPDATE or MAX_DATA frames to allow the sender to continue transmitting, introducing additional RTT for signaling. In scenarios involving small messages (1–10 KB) at high throughput (thousands of requests per second), this causes latency spikes as the sender may stall waiting for window updates despite available bandwidth. WSMP employs an advisory-driven approach: the receiver only suggests missing fragments or recommends a window size, without mandatory blocking. This eliminates unnecessary signaling overhead and latency, making the protocol ideal for internal microservice communications in data centers or VPCs, where the network is stable and congestion is minimal.
+- Avoiding unnecessary congestion control in controlled environments: QUIC and HTTP/2 incorporate built-in congestion control mechanisms (similar to TCP), which are essential in WAN environments with variable latency and loss. In trusted high-speed networks (for example, AWS VPC or on-premises clusters), these mechanisms add superfluous probing and backoff delays that reduce throughput. WSMP relies on sender-driven retries without global congestion signaling, enabling maximum performance without over-engineering.
+- Lower overall overhead for tiny payloads: encryption and framing in QUIC/HTTP/2 (with per-packet crypto and multiplexing) increase CPU load and packet size, becoming a bottleneck at speeds over 1 Gbps. WSMP minimizes header size (8–16 bytes baseline) and supports message batching, delivering better p99 latency and throughput in scenarios like in-cluster messaging in Kubernetes.
+
+In summary, WSMP is a targeted alternative for niche use cases where the universality of HTTP/2 and QUIC becomes a performance liability. Benchmarks against gRPC or raw HTTP/2 in low-latency environments are recommended to quantify these advantages.
 
 ## Design goals
 
